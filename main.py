@@ -1,13 +1,12 @@
 """
-as the user ask for the shopping list items for a meal
-
-TODO: if item is not in MEALS -> ask again
+*** Recipe Book ***
+User requests ingredients list from list of meals.
 """
 
-
+SEPARATOR = '----------------------'
 MEALS = {
     'tacos': ('beef', 'tortillas', 'lettuce'),
-    'chicken noodle soup': ('more goodness', 'hello world'),
+    'chicken noodle soup': ('chicken', 'noodles'),
 }
 
 
@@ -17,20 +16,24 @@ def print_meals():
 
 
 def print_options():
-    print('\nYour meal options are:\t')
+    print(f'\n{SEPARATOR}')
+    print('Your meal options are:\t')
     print_meals()
+    print(SEPARATOR)
 
 
 print('\nWelcome to your recipe book!')
 print_options()
-selection = input('\nWhat meal do you want to make?\t')
-lowercase_selection = selection.lower()
+selection = input('\nWhat meal do you want to make?\t').lower()
 
 
-if lowercase_selection in MEALS:
-    print(f'\n*** {selection.title()} ***')
-    for ingredients in MEALS[lowercase_selection]:
-        print(f'\u00B7 {ingredients.title()}')
-else:
+while selection not in MEALS:
     print('\n*** Option not in recipe book! ***')
     print_options()
+    selection = input('\nWhat meal do you want to make?\t').lower()
+
+
+if selection in MEALS:
+    print(f'\n*** {selection.title()} ***')
+    for ingredients in MEALS[selection]:
+        print(f'\u00B7 {ingredients.title()}')
